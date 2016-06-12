@@ -537,7 +537,9 @@ char *yytext;
 #line 1 "TokenClasses.l"
 #line 3 "TokenClasses.l"
 int num_lineas = 0, num_caracteres = 0;
-#line 541 "lex.yy.c"
+FILE * salida;
+
+#line 543 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -724,9 +726,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 10 "TokenClasses.l"
+#line 12 "TokenClasses.l"
 
-#line 730 "lex.yy.c"
+#line 732 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -812,82 +814,82 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 11 "TokenClasses.l"
+#line 13 "TokenClasses.l"
 {	++num_lineas;
 	++num_caracteres;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "TokenClasses.l"
+#line 17 "TokenClasses.l"
 {
-	    printf("Palabra reservada:          %s\n",yytext);
+	    fprintf(salida,"Palabra_reservada :          %s\n",yytext);
 	    }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 19 "TokenClasses.l"
-{printf( "Un identificador:           %s\n", yytext );}
+#line 21 "TokenClasses.l"
+{fprintf( salida,"Identificador :           %s\n", yytext );}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "TokenClasses.l"
-{printf( "Un operador:                %s\n", yytext);}
+#line 23 "TokenClasses.l"
+{fprintf( salida,"Un_operador :                %s\n", yytext);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "TokenClasses.l"
-{printf("Operando compuesto:         %s\n",yytext);}
+#line 25 "TokenClasses.l"
+{fprintf(salida,"Operando_compuesto :         %s\n",yytext);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 25 "TokenClasses.l"
-{ printf("Literal de tipo int:       %s\n",yytext);}
+#line 27 "TokenClasses.l"
+{ fprintf(salida,"Literal_de_tipo_int :       %s\n",yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 27 "TokenClasses.l"
-{ printf("Literal de tipo float:      %s\n",yytext);}
+#line 29 "TokenClasses.l"
+{ fprintf(salida,"Literal_de_tipo_float :      %s\n",yytext);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 29 "TokenClasses.l"
-{ printf("Literal de tipo boolean:    %s\n",yytext);}
+#line 31 "TokenClasses.l"
+{ fprintf(salida,"Literal_de_tipo_boolean :    %s\n",yytext);}
 	YY_BREAK
 case 9:
-YY_RULE_SETUP
-#line 31 "TokenClasses.l"
-
-	YY_BREAK
-case 10:
 YY_RULE_SETUP
 #line 33 "TokenClasses.l"
 
 	YY_BREAK
-case 11:
+case 10:
 YY_RULE_SETUP
 #line 35 "TokenClasses.l"
-{printf ("Literal de tipo char:       %s\n",yytext);}
+
+	YY_BREAK
+case 11:
+YY_RULE_SETUP
+#line 37 "TokenClasses.l"
+{fprintf (salida,"Literal_de_tipo_char :       %s\n",yytext);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 37 "TokenClasses.l"
-{printf("Literal de tipo String:     %s\n",yytext);}
+#line 39 "TokenClasses.l"
+{fprintf(salida,"Literal_de_tipo_String :     %s\n",yytext);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 39 "TokenClasses.l"
+#line 41 "TokenClasses.l"
 {    
 	++num_caracteres;
-	printf( "Error en la línea: %d    %s\n",num_caracteres, yytext );
+	fprintf(salida, "Error en la línea: %d    %s\n",num_caracteres, yytext );
 	yyterminate();}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 47 "TokenClasses.l"
+#line 49 "TokenClasses.l"
 ECHO;
 	YY_BREAK
-#line 891 "lex.yy.c"
+#line 893 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1885,12 +1887,14 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 47 "TokenClasses.l"
+#line 49 "TokenClasses.l"
 
 
 
 main(){
     yyin = fopen( "Codigo.txt", "r" );
-    yylex();
+	salida = fopen("CodigoTokenClasses.txt","w");
+	yylex();
+
     }
 

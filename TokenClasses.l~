@@ -15,7 +15,7 @@ CHAR  [a-z|0-9]
 }
 
 int|float|bool|char|string|if|then|else|while|do|input|output|return {
-	    fprintf(salida,"Palabra_reservada :          %s\n",yytext);
+	    printf(salida,"Palabra_reservada :          %s\n",yytext);
 	    }
 
 {ID}        {fprintf( salida,"Identificador :           %s\n", yytext );}
