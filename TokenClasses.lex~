@@ -1,0 +1,36 @@
+DECIMAL   [0-9]+
+ID       [a-z][a-z|0-9]*
+HEXADECIMAL [0][x][0-9|a-f|A-F]+
+OCTAL [o][0-7]+
+%%
+{DECIMAL}+   {
+            printf( "Un DECIMAL: %s\n", yytext);
+            }
+
+{HEXADECIMAL}     {
+            printf( "Un hexadecimal: %s\n", yytext);
+            }
+{OCTAL}  {
+	printf("Un octal: %s\n",yytext);
+	}
+
+if|then|begin|end|procedure|function        {
+            printf( "Una palabra clave: %s\n", yytext );
+            }
+
+{ID}        printf( "Un identificador: %s\n", yytext );
+
+"+"|"-"|"*"|"/"|"++"|"--"   printf( "Un operador: %s\n", yytext );
+
+"{"[^}\n]*"}"     /* se come una linea de comentarios */
+
+[ \t\n]+          /* se come los espacios en blanco */
+
+.           printf( "Caracter no reconocido: %s\n", yytext );
+
+%%
+
+main( ){
+printf("Escriba algo\n");
+    yylex();
+    }
